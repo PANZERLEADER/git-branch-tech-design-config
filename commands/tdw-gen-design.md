@@ -16,6 +16,9 @@ invokes: branch-tech-design-workflow
 ```bash
 /tdw-gen-design
 
+# 使用默认模板（工程内置）
+执行 branch-tech-design-workflow，使用默认模板生成技术方案。
+
 # 指定模板
-执行 branch-tech-design-workflow，模板使用 /Users/stuka/IdeaProjects/simi/simi-server/实现方案/XXXXX-技术设计方案模版.md。
+执行 branch-tech-design-workflow，模板使用 /path/to/your-template.md。
 ```

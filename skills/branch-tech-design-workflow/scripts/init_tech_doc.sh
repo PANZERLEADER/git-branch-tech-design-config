@@ -2,7 +2,10 @@
 
 set -euo pipefail
 
-TEMPLATE_PATH="${1:-/Users/stuka/IdeaProjects/simi/simi-server/实现方案/XXXXX-技术设计方案模版.md}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEFAULT_TEMPLATE_PATH="$(cd "$SCRIPT_DIR/../assets" && pwd)/tech-design-template.md"
+
+TEMPLATE_PATH="${1:-$DEFAULT_TEMPLATE_PATH}"
 OUT_DIR="${2:-doc/技术方案}"
 OUT_FILE="${3:-}"
 
@@ -13,6 +16,7 @@ fi
 
 if [ ! -f "$TEMPLATE_PATH" ]; then
   echo "ERROR: template file not found: $TEMPLATE_PATH" >&2
+  echo "INFO: built-in default template: $DEFAULT_TEMPLATE_PATH" >&2
   exit 1
 fi
 

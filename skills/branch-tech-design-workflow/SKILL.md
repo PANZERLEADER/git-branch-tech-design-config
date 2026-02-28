@@ -12,7 +12,7 @@ description: 比较当前 Git 分支与 master 的差异并生成结构化 diff 
 - 基准分支：默认 `master`
 - diff 输出目录：默认 `doc/diff`
 - 方案输出目录：默认 `doc/技术方案`
-- 模板路径：默认 `/Users/stuka/IdeaProjects/simi/simi-server/实现方案/XXXXX-技术设计方案模版.md`
+- 模板路径：默认使用技能内置模板 `assets/tech-design-template.md`
 
 ## 步骤 1：采集分支差异数据
 
@@ -61,9 +61,13 @@ fi
 2. 执行初始化：
 
 ```bash
-bash "$INIT_SCRIPT" \
-  "/Users/stuka/IdeaProjects/simi/simi-server/实现方案/XXXXX-技术设计方案模版.md" \
-  "doc/技术方案"
+bash "$INIT_SCRIPT"
+```
+
+如需自定义模板，可传入模板路径与输出目录：
+
+```bash
+bash "$INIT_SCRIPT" "/path/to/your-template.md" "doc/技术方案"
 ```
 
 3. 记录输出文件路径（脚本会回显绝对路径）。
