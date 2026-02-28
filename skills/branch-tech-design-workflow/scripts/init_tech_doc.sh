@@ -17,7 +17,27 @@ if [ ! -f "$TEMPLATE_PATH" ]; then
 fi
 
 CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-SAFE_BRANCH="$(printf '%s' "$CURRENT_BRANCH" | sed 's#[^A-Za-z0-9._-]#_#g')"
+
+sanitize_branch_for_path() {
+  local branch="$1"
+  local safe="$branch"
+
+  # Keep non-ASCII branch names readable (e.g. Chinese), only replace path-risk chars.
+  safe="${safe//\//__}"
+  safe="${safe//\\/__}"
+  safe="${safe//$'\n'/_}"
+  safe="${safe//$'\r'/_}"
+  safe="${safe//$'\t'/_}"
+  safe="$(printf '%s' "$safe" | sed -E 's/[:*?"<>|]/_/g; s/[[:space:]]+/_/g; s/_+/_/g; s/^_+//; s/_+$//')"
+
+  if [ -z "$safe" ]; then
+    safe="branch"
+  fi
+
+  printf '%s' "$safe"
+}
+
+SAFE_BRANCH="$(sanitize_branch_for_path "$CURRENT_BRANCH")"
 TODAY="$(date +%Y%m%d)"
 
 mkdir -p "$OUT_DIR"
